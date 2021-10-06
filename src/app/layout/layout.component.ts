@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import $wal from 'sweetalert2';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
   }
 
+  oneButton(): void {
+    $wal.fire({
+      title: 'Título',
+      text: 'Este es el texto del cuadro de diálogo',
+      icon: 'warning',
+      showConfirmButton: true,
+      confirmButtonColor: '#5360a9'
+    }).then((resolve) => {
+      this.toastr.success(resolve.value);
+    }).catch((reject) => {
+      this.toastr.error(reject);
+    });
+  }
 }
