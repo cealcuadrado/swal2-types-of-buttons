@@ -51,4 +51,36 @@ export class LayoutComponent implements OnInit {
       this.toastr.error(`Two Buttons: ${reject}`);
     });
   }
+
+  threeButtons(): void {
+    $wal
+      .fire({
+        title: "Dos botones",
+        text: "Este es una cuadro de diálogo con tres botones",
+        icon: "warning",
+        showConfirmButton: true,
+        confirmButtonColor: "#069539",
+        confirmButtonText: 'Confirm',
+        showCancelButton: true,
+        cancelButtonColor: "#cc253a",
+        cancelButtonText: 'Cancel',
+        showDenyButton: true,
+        denyButtonColor: '#5360a9',
+        denyButtonText: 'Deny'
+      })
+      .then((resolve) => {
+        console.log(resolve);
+        if (resolve.isConfirmed) {
+          this.toastr.success(`Three Buttons: Confirm pressed`);
+        } else if (resolve.isDenied) {
+          this.toastr.success(`Three Buttons: Deny Pressed`);
+        } else if (resolve.isDismissed) {
+          this.toastr.success(`Three Buttons: Cancel Pressed by ${resolve.dismiss.toString()}`);
+        }
+      })
+      .catch((reject) => {
+        console.log(reject);
+        this.toastr.error(`Two Buttons: ${reject}`);
+      });
+  }
 }
