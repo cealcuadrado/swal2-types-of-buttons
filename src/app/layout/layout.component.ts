@@ -24,9 +24,31 @@ export class LayoutComponent implements OnInit {
       showConfirmButton: true,
       confirmButtonColor: '#5360a9'
     }).then((resolve) => {
-      this.toastr.success(resolve.value);
+      this.toastr.success(`One Button: ${resolve.value}`);
     }).catch((reject) => {
-      this.toastr.error(reject);
+      this.toastr.error(`One Button: ${reject}`);
+    });
+  }
+
+  twoButtons(): void {
+    $wal.fire({
+      title: 'Dos botones',
+      text: 'Este es una cuadro de diálogo con dos botones',
+      icon: 'warning',
+      showConfirmButton: true,
+      confirmButtonColor: '#069539',
+      showCancelButton: true,
+      cancelButtonColor: '#cc253a',
+    }).then((resolve) => {
+      console.log(resolve);
+      if (resolve.value) {
+        this.toastr.success(`Two Buttons: ${resolve.value}`);
+      } else if (resolve.dismiss.toString() == 'cancel') {
+        this.toastr.error(`Two Buttons: ${resolve.dismiss.toString()}`);
+      }
+    }).catch((reject) => {
+      console.log(reject);
+      this.toastr.error(`Two Buttons: ${reject}`);
     });
   }
 }
